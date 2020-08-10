@@ -28,7 +28,19 @@ square.forEach((id) => {
 
 function moveMole() {
   let timerId = null;
-  timerId = setInterval(randomSquare, 2000);
+  timerId = setInterval(randomSquare, 1000);
 }
 
 moveMole();
+
+function countDown() {
+  currentTime--;
+  timeLeft.textContent = currentTime;
+
+  if (currentTime === 0) {
+    clearInterval(timerId);
+    alert("Game over, your final score is " + result);
+  }
+}
+
+let timerId = setInterval(countDown, 1000);
