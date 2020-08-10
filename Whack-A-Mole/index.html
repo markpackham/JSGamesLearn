@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="app.js"></script>
+    <!-- we have to defer the js here or the mole won't have anywhere to be added to if the 
+    html hasn't been fully loaded-->
+    <script defer src="app.js"></script>
   </head>
   <body>
     <h1>
