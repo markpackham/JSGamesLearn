@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let width = 15;
   let currentShooterIndex = 202;
   let currentInvaderIndex = 0;
-  let alienInvaderTakenDown = [];
+  let alienInvadersTakenDown = [];
   let result = 0;
   let direction = 1;
   let invaderId;
@@ -86,9 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
       direction = width;
     } else if (direction === width) {
       if (leftEdge) direction = 1;
-      else direction - 1;
+      else direction = -1;
     }
-
     for (let i = 0; i <= alienInvaders.length - 1; i++) {
       squares[alienInvaders[i]].classList.remove("invader");
     }
@@ -96,10 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
       alienInvaders[i] += direction;
     }
     for (let i = 0; i <= alienInvaders.length - 1; i++) {
-      squares[alienInvaders[i].classList.add("invader")];
+      if (!alienInvadersTakenDown.includes(i)) {
+        squares[alienInvaders[i]].classList.add("invader");
+      }
     }
 
-    // decide a game over
     if (squares[currentShooterIndex].classList.contains("invader", "shooter")) {
       resultDisplay.textContent = "Game Over";
       squares[currentShooterIndex].classList.add("boom");
@@ -111,6 +111,13 @@ document.addEventListener("DOMContentLoaded", () => {
         resultDisplay.textContent = "Game Over";
         clearInterval(invaderId);
       }
+    }
+
+    if (alienInvadersTakenDown.length === alienInvaders.length) {
+      console.log(alienInvadersTakenDown.length);
+      console.log(alienInvaders.length);
+      resultDisplay.textContent = "You Win";
+      clearInterval(invaderId);
     }
   }
 
