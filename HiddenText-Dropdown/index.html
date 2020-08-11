@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <h1>
+      Hidden Text Dropdown learned from
+      https://www.youtube.com/watch?v=kQW-MXriUIU
+    </h1>
+    <div class="card">
+      <div class="placeholder-for-image"></div>
+      <div class="info">
+        <h2>Title</h2>
+      </div>
+      <div class="description">
+        <div class="expandMoreContent" id="showMoreContent1">
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla,
+            quas. Architecto modi in recusandae, debitis inventore quas. Ipsam
+            vel, eos deserunt ea expedita minima soluta rerum, tempore nam
+            temporibus veniam?
+          </p>
+        </div>
+
+        <div class="expandMoreHolder">
+          <span
+            expand-more
+            data-hidetext="Show Less"
+            data-text="Show More"
+            data-target="showMoreContent1"
+            class="btn-expand-more"
+            >...Show More</span
+          >
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
