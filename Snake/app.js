@@ -12,4 +12,27 @@ document.addEventListener("DOMContentLoaded", () => {
   let speed = 0.9;
   let intervalTime = 0;
   let interval = 0;
+
+  // start and restart game
+
+  // keycode funcitons for movement
+  function control(e) {
+    squares[currentIndex].classList.remove("snake");
+    // 39 is the right arrow key
+    if (e.keyCode === 39) {
+      direction = 1;
+      // up arrow
+    } else if (e.keyCode === 38) {
+      direction = -width;
+      // left arrow
+    } else if (e.keyCode === 37) {
+      direction = -1;
+      // down arrow
+    } else if (e.keyCode === 40) {
+      direction = +width;
+    }
+  }
+
+  document.addEventListener("keyup", control);
+  startBtn.addEventListener("click", startGame);
 });
