@@ -137,4 +137,50 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
     }
   }
+
+  // move the frog when its on the log moving left
+  function moveWithLogLeft() {
+    if (currentIndex >= 27 && currentIndex < 35) {
+      squares[currentIndex].classList.remove("frog");
+      currentIndex += 1;
+      squares[currentIndex].classList.add("frog");
+    }
+  }
+
+  // move the frog when its on the log moving right
+  function moveWithLogRight() {
+    if (currentIndex > 18 && currentIndex <= 26) {
+      squares[currentIndex].classList.remove("frog");
+      currentIndex -= 1;
+      squares[currentIndex].classList.add("frog");
+    }
+  }
+
+  // rules to win
+  function win() {
+    if (squares[4].classList.contains("frog")) {
+      result.innerHTML = "You WON";
+      squares[currentIndex].classList.remove("frog");
+      clearInterval(timerId);
+      document.removeEventListener("keyup", moveFrog);
+    }
+  }
+
+  // rules to lose
+  function lose() {
+    if (
+      currentTime === 0 ||
+      // hit by car
+      squares[currentIndex].classList.contains("c1") ||
+      // fall in river
+      squares[currentIndex].classList.contains("l5") ||
+      // fall in river
+      squares[currentIndex].classList.contains("l4")
+    ) {
+      result.innerHTML = "You LOSE";
+      squares[currentIndex].classList.remove("frog");
+      clearInterval(timerId);
+      document.removeEventListener("keyup", moveFrog);
+    }
+  }
 });
