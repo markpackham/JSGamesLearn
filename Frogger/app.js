@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const timeLeft = document.querySelector("#time-left");
   const result = document.querySelector("#result");
   const startBtn = document.querySelector("#button");
+  const restartBtn = document.querySelector("#restart");
   const width = 9;
   let currentIndex = 76;
   let currentTime = 20;
@@ -203,5 +204,10 @@ document.addEventListener("DOMContentLoaded", () => {
       timerId = setInterval(movePieces, 1000);
       document.addEventListener("keyup", moveFrog);
     }
+  });
+
+  // refresh browser to restart game
+  restartBtn.addEventListener("click", () => {
+    location.reload();
   });
 });
