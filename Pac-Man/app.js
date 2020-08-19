@@ -798,6 +798,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const squares = [];
 
-  function createBoard() {}
+  function createBoard() {
+    for (let i = 0; i < layout.length; i++) {
+      const square = document.createElement("div");
+      grid.appendChild(square);
+      squares.push(square);
+
+      // board layout
+      if (layout[i] === 0) {
+        squares[i].classList.add("pac-dot");
+      } else if (layout[i] === 1) {
+        squares[i].classList.add("wall");
+      } else if (layout[i] === 2) {
+        squares[i].classList.add("ghost-lair");
+      } else if (layout[i] === 3) {
+        squares[i].classList.add("power-pellet");
+      }
+    }
+  }
   createBoard();
+
+  // Characters
+  // Pac-Man
+  let pacmanCurrentIndex = 490;
+  squares[pacmanCurrentIndex].classList.add("pac-man");
+
+  // Move Pac-Man
+  function movePacman(e) {
+    squares[pacmanCurrentIndex].classList.remove("pac-man");
+    switch (e.keyCode) {
+      // left arrow (we move along the array)
+      case 37:
+        if (
+          pacmanCurrentIndex % width !== 0 &&
+          // Make sure he can't go through walls or enter the ghost lair
+          !squares[pacmanCurrentIndex - 1].classList.contains("wall") &&
+          !squares[pacmanCurrentIndex - 1].classList.contains("ghost-lair")
+        )
+          pacmanCurrentIndex -= 1;
+        // check if he's at the left exit so we can move him to the opposite screen size
+        if (squares[pacmanCurrentIndex - 1] === squares[363]) {
+          pacmanCurrentIndex = 391;
+        }
+        break;
+      // up arrow
+      case 38:
+        if (
+          pacmanCurrentIndex - width >= 0 &&
+          !squares[pacmanCurrentIndex - width].classList.contains("wall") &&
+          !squares[pacmanCurrentIndex - width].classList.contains("ghost-lair")
+        )
+          pacmanCurrentIndex -= width;
+        break;
+      // right arrow
+      case 39:
+        if (
+          pacmanCurrentIndex % width < width - 1 &&
+          !squares[pacmanCurrentIndex + 1].classList.contains("wall") &&
+          !squares[pacmanCurrentIndex + 1].classList.contains("ghost-lair")
+        )
+          pacmanCurrentIndex += 1;
+        // check if he's at the right exit
+        if (squares[pacmanCurrentIndex + 1] === squares[392]) {
+          pacmanCurrentIndex = 364;
+        }
+        break;
+      // down arrow
+      case 40:
+        if (
+          pacmanCurrentIndex + width < width * width &&
+          !squares[pacmanCurrentIndex + width].classList.contains("wall") &&
+          !squares[pacmanCurrentIndex + width].classList.contains("ghost-lair")
+        )
+          pacmanCurrentIndex += width;
+        break;
+    }
+    squares[pacmanCurrentIndex].classList.add("pac-man");
+    // pacDotEaten();
+    // powerPelletEaten();
+    // checkForGameOver();
+    // checkForWin();
+  }
+  document.addEventListener("keyup", movePacman);
 });
