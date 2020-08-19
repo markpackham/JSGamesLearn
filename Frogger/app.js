@@ -183,4 +183,25 @@ document.addEventListener("DOMContentLoaded", () => {
       document.removeEventListener("keyup", moveFrog);
     }
   }
+
+  // move all the pieces
+  function movePieces() {
+    currentTime--;
+    timeLeft.textContent = currentTime;
+    autoMoveCars();
+    autoMoveLogs();
+    moveWithLogLeft();
+    moveWithLogRight();
+    lose();
+  }
+
+  // start and pause game
+  startBtn.addEventListener("click", () => {
+    if (timerId) {
+      clearInterval(timerId);
+    } else {
+      timerId = setInterval(movePieces, 1000);
+      document.addEventListener("keyup", moveFrog);
+    }
+  });
 });
