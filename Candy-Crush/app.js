@@ -13,4 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
     "url(images/green-candy.png)",
     "url(images/blue-candy.png)",
   ];
+
+  // create game board
+  function createBoard() {
+    for (let i = 0; i < width * width; i++) {
+      const square = document.createElement("div");
+      square.setAttribute("draggable", true);
+      square.setAttribute("id", i);
+      let randomColor = Math.floor(Math.random() * candyColors.length);
+      square.style.backgroundImage = candyColors[randomColor];
+      grid.appendChild(square);
+      squares.push(square);
+    }
+  }
+  createBoard();
 });
