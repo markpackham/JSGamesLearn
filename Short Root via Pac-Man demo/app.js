@@ -825,4 +825,55 @@ document.addEventListener("DOMContentLoaded", () => {
   function getCoordinates(index) {
     return [index % width, Math.floor(index / width)];
   }
+
+  function moveBlinky() {
+    const directions = [-1, +1, +width, -width];
+    let ghostimerId = NaN;
+    let direction = directions[Math.floor(Math.random() * directions.length)];
+
+    ghostimerId = setInterval(function () {
+      // make sure ghost doesn't move into a wall
+      if (!squares[blinkyCurrentIndex + direction].classList.contains("wall")) {
+        // remove the ghost classes
+        squares[blinkyCurrentIndex].classList.remove("blinky");
+        // move into that space
+        const [blinkyX, blinkyY] = getCoordinates(blinkyCurrentIndex);
+        const [pacManX, pacManY] = getCoordinates(pacmanCurrentIndex);
+        const [blinkyNextX, blinkyNextY] = getCoordinates(
+          blinkyCurrentIndex + direction
+        );
+
+        // check if X direction is closer
+        function isXCoordCloser() {
+          if (blinkyNextX - pacManX > blinkyX - pacManX) {
+            return true;
+          } else return false;
+        }
+
+        // check if Y direction is closer
+        function isYCoordCloser() {
+          if (blinkyNextY - pacManY > blinkyY - pacManY) {
+            return true;
+          } else return false;
+        }
+
+        if (isXCoordCloser() || isYCoordCloser()) {
+          blinkyCurrentIndex += direction;
+          squares[blinkyCurrentIndex].classList.add("blinky");
+        } else {
+          squares[blinkyCurrentIndex].classList.add("blinky");
+          direction = directions[Math.floor(Math.random() * directions.length)];
+        }
+
+        squares[blinkyCurrentIndex].classList.add("blinky");
+      } else direction = directions[Math.floor(Math.random() * directions.length)];
+
+      if (squares[blinkyCurrentIndex].classList.contains("pac-man")) {
+        clearInterval(ghostimerId);
+        alert("Pac-Man Found!");
+      }
+    }, 300);
+  }
+
+  moveBlinky();
 });
