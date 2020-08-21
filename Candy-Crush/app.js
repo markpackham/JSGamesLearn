@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.querySelector(".grid");
   const scoreDisplay = document.getElementById("score");
+  const startGame = document.querySelector("#btn-start");
   const width = 8;
   const squares = [];
   let score = 0;
@@ -87,6 +88,23 @@ document.addEventListener("DOMContentLoaded", () => {
       squares[squareIdBeingDragged].style.backgroundImage = colorBeingDragged;
   }
 
+  // drop candies once some have been cleared
+  function moveIntoSquareBelow() {
+    for (i = 0; i < 55; i++) {
+      if (squares[i + width].style.backgroundImage === "") {
+        squares[i + width].style.backgroundImage =
+          squares[i].style.backgroundImage;
+        squares[i].style.backgroundImage = "";
+        const firstRow = [0, 1, 2, 3, 4, 5, 6, 7];
+        const isFirstRow = firstRow.includes(i);
+        if (isFirstRow && squares[i].style.backgroundImage === "") {
+          let randomColor = Math.floor(Math.random() * candyColors.length);
+          squares[i].style.backgroundImage = candyColors[randomColor];
+        }
+      }
+    }
+  }
+
   // Check for Matches
   // row of 4 check
   function checkRowForFour() {
@@ -96,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // an empty is defined by having no background color
       const isBlank = squares[i].style.backgroundImage === "";
 
+      // The rows must not start at these locations so you don't end up impacting a row on the opposite side of the screen
       const notValid = [
         5,
         6,
@@ -167,6 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let decidedColor = squares[i].style.backgroundImage;
       const isBlank = squares[i].style.backgroundImage === "";
 
+      // The rows must not start at these locations so you don't end up impacting a row on the opposite side of the screen
       const notValid = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55];
       if (notValid.includes(i)) continue;
 
@@ -215,5 +235,10 @@ document.addEventListener("DOMContentLoaded", () => {
     checkColumnForFour();
     checkRowForThree();
     checkColumnForThree();
+    moveIntoSquareBelow();
   }, 100);
+
+  startGame.addEventListener("click", () => {
+    location.reload();
+  });
 });
