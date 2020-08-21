@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const grid = document.querySelector(".grid");
   let squares = Array.from(document.querySelectorAll(".grid div"));
   const scoreDisplay = document.querySelector("#score");
-  const startBtn = document.querySelector("#start-button");
+  const startBtn = document.querySelector("#btn-start");
+  const restartGame = document.querySelector("#btn-restart");
   const width = 10;
   let nextRandom = 0;
   let timerId;
@@ -151,8 +152,8 @@ document.addEventListener("DOMContentLoaded", () => {
       currentPosition = 4;
       draw();
       displayShape();
-      // addScore();
-      // gameOver();
+      addScore();
+      gameOver();
     }
   }
 
@@ -239,10 +240,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Game start button
+  // game start/pause button
   startBtn.addEventListener("click", () => {
     if (timerId) {
       clearInterval(timerId);
+      // pause game setting timerId to null
       timerId = null;
     } else {
       draw();
@@ -250,5 +252,9 @@ document.addEventListener("DOMContentLoaded", () => {
       nextRandom = Math.floor(Math.random() * theTetrominoes.length);
       displayShape();
     }
+  });
+
+  restartGame.addEventListener("click", () => {
+    location.reload();
   });
 });
