@@ -55,4 +55,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentPosition = 4;
   let currentRotation = 0;
+
+  // Add random element for our current Tetrominoes
+  let random = Math.floor(Math.random() * theTetrominoes.length);
+  let current = theTetrominoes[random][currentRotation];
+
+  // draw the Tetromino
+  function draw() {
+    current.forEach((index) => {
+      squares[currentPosition + index].classList.add("tetromino");
+      squares[currentPosition + index].style.backgroundColor = colors[random];
+    });
+  }
+
+  // undraw aka remove the Tetromino
+  function undraw() {
+    current.forEach((index) => {
+      squares[currentPosition + index].classList.remove("tetromino");
+      squares[currentPosition + index].style.backgroundColor = "";
+    });
+  }
 });
