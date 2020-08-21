@@ -9,5 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let isGameOver = false;
 
   // create board
-  function createBoard() {}
+  function createBoard() {
+    for (let i = 0; i < width * width; i++) {}
+  }
 });
