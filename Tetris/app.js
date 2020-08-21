@@ -77,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // keyboard controls
+  // ones used are left, up, right and down
   function control(e) {
     if (e.keyCode === 37) {
       moveLeft();
@@ -152,5 +153,17 @@ document.addEventListener("DOMContentLoaded", () => {
       addScore();
       gameOver();
     }
+  }
+
+  // rotation
+  function rotate() {
+    undraw();
+    currentRotation++;
+    if (currentRotation === current.length) {
+      // if the current rotation gets to 4, make it go back to 0
+      currentRotation = 0;
+    }
+    current = theTetrominoes[random][currentRotation];
+    draw();
   }
 });
