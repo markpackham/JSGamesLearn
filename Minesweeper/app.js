@@ -10,6 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // create board
   function createBoard() {
+    flagsLeft.innerHTML = bombAmount;
+    // the shuffledArray will contain a random number of bombs
+    const bombsArray = Array(bombAmount).fill("bomb");
+    const emptyArray = Array(width * width - bombAmount).fill("valid");
+    const gameArray = emptyArray.concat(bombsArray);
+    const shuffledArray = gameArray.sort(() => Math.random() - 0.5);
+
     for (let i = 0; i < width * width; i++) {}
   }
 });
