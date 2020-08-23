@@ -19,4 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (let i = 0; i < width * width; i++) {}
   }
+
+  createBoard();
 });
