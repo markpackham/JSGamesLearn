@@ -24,12 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
       grid.appendChild(square);
       squares.push(square);
 
-      // normal click
+      // left click
       square.addEventListener("click", function (e) {
         click(square);
       });
 
-      // ctrl left click
+      // right click
       square.oncontextmenu = function (e) {
         e.preventDefault();
         addFlag(square);
@@ -121,6 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
         square.innerHTML = " 🚩";
         flags++;
         flagsLeft.innerHTML = bombAmount - flags;
+        // evertime you add a flag see if you have won
         checkForWin();
       } else {
         square.classList.remove("flag");
@@ -193,5 +194,23 @@ document.addEventListener("DOMContentLoaded", () => {
         square.classList.add("checked");
       }
     });
+  }
+
+  // game won if you've got a flag on all bombs
+  function checkForWin() {
+    let matches = 0;
+
+    for (let i = 0; i < squares.length; i++) {
+      if (
+        squares[i].classList.contains("flag") &&
+        squares[i].classList.contains("bomb")
+      ) {
+        matches++;
+      }
+      if (matches === bombAmount) {
+        result.innerHTML = "YOU WON!";
+        isGameOver = true;
+      }
+    }
   }
 });
