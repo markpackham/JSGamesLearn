@@ -14,11 +14,32 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.keyCode === 32) {
       if (!isJumping) {
         isJumping = true;
-        console.log("pressed");
         jump();
       }
     }
   }
+  document.addEventListener("keyup", control);
 
-  function jump() {}
+  function jump() {
+    let timerId = setInterval(function () {
+      // we need to clear the interval or the dino will be stuck in the jumped position
+
+      // move down (gravity)
+      if (position === 150) {
+        clearInterval(timerId);
+        let downTimeId = setInterval(function () {
+          if (position === 0) {
+            clearInterval(downTimeId);
+            isJumping = false;
+          }
+          position -= 30;
+          dino.style.bottom = position + "px";
+        }, 20);
+      }
+
+      // move upwards
+      position += 30;
+      dino.style.bottom = position + "px";
+    }, 20);
+  }
 });
