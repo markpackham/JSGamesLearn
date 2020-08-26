@@ -21,24 +21,26 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keyup", control);
 
   function jump() {
+    let count = 0;
     let timerId = setInterval(function () {
-      // we need to clear the interval or the dino will be stuck in the jumped position
-
-      // move down (gravity)
-      if (position === 150) {
+      // fall down
+      if (count === 15) {
         clearInterval(timerId);
-        let downTimeId = setInterval(function () {
-          if (position === 0) {
-            clearInterval(downTimeId);
+        let downTimerId = setInterval(function () {
+          if (count === 0) {
+            clearInterval(downTimerId);
             isJumping = false;
           }
-          position -= 30;
+          position -= 5;
+          count--;
+          position = position * gravity;
           dino.style.bottom = position + "px";
         }, 20);
       }
-
-      // move upwards
+      // move up
       position += 30;
+      count++;
+      position = position * gravity;
       dino.style.bottom = position + "px";
     }, 20);
   }
