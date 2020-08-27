@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let isGoingLeft = false;
   let bottom = 0;
   let gravity = 0.9;
+  // we don't need a "right" variable since it's just "left" inverted
   let left = 0;
   let leftTimerId;
   let rightTimerId;
@@ -33,9 +34,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 20);
   }
 
-  function slideLeft() {}
+  function slideLeft() {
+    isGoingLeft = true;
+    let leftTimerId = setInterval(function () {
+      left -= 5;
+      prince.style.left = left + "px";
+    }, 20);
+  }
 
-  function slideRight() {}
+  function slideRight() {
+    isGoingRight = true;
+    let rightTimerId = setInterval(function () {
+      // still use "left" variable but instead of - we use +
+      left += 5;
+      prince.style.left = left + "px";
+    }, 20);
+  }
 
   // keyboard functions
   function control(e) {
