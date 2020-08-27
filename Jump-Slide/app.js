@@ -10,7 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let leftTimerId;
   let rightTimerId;
 
-  function jump() {}
+  function jump() {
+    bottom += 30;
+    prince.style.bottom = bottom + "px";
+  }
 
   function slideLeft() {}
 
@@ -21,11 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.keyCode === 39) {
       // if we press the right arrow on our keyboard
       slideRight();
-    } else if (e.keyCode === 38) {
       // if we press the up arrow
+    } else if (e.keyCode === 38 || e.keyCode === 32) {
       jump();
-    } else if (e.keyCode === 37) {
       // if we press left
+    } else if (e.keyCode === 37) {
       slideLeft();
     }
   }
