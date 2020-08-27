@@ -11,8 +11,21 @@ document.addEventListener("DOMContentLoaded", () => {
   let rightTimerId;
 
   function jump() {
-    bottom += 30;
-    prince.style.bottom = bottom + "px";
+    let timerUpId = setInterval(function () {
+      if (bottom > 250) {
+        clearInterval(timerUpId);
+        let timerDownId = setInterval(function () {
+          if (bottom < 0) {
+            clearInterval(timerDownId);
+          }
+          bottom -= 5;
+          prince.style.bottom = bottom + "px";
+        }, 20);
+      }
+
+      bottom += 30;
+      prince.style.bottom = bottom + "px";
+    }, 20);
   }
 
   function slideLeft() {}
@@ -24,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.keyCode === 39) {
       // if we press the right arrow on our keyboard
       slideRight();
-      // if we press the up arrow
+      // if we press the up arrow or spacebar
     } else if (e.keyCode === 38 || e.keyCode === 32) {
       jump();
       // if we press left
