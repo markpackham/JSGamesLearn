@@ -11,19 +11,24 @@ document.addEventListener("DOMContentLoaded", () => {
   let rightTimerId;
 
   function jump() {
+    // we use isJumping to prevent the risk of the character doing multiple jumps in midair
+    if (isJumping) return;
     let timerUpId = setInterval(function () {
       if (bottom > 250) {
         clearInterval(timerUpId);
         let timerDownId = setInterval(function () {
           if (bottom < 0) {
             clearInterval(timerDownId);
+            isJumping = false;
           }
           bottom -= 5;
+          bottom = bottom * gravity;
           prince.style.bottom = bottom + "px";
         }, 20);
       }
-
+      isJumping = true;
       bottom += 30;
+      bottom = bottom * gravity;
       prince.style.bottom = bottom + "px";
     }, 20);
   }

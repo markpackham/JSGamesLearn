@@ -1,6 +1,8 @@
 .game {
   height: 400px;
   width: 500px;
+  position: absolute;
+  bottom: 100px;
 }
 
 .character {
