@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function jump() {
     // we use isJumping to prevent the risk of the character doing multiple jumps in midair
     if (isJumping) return;
+    prince.classList.add("character");
+    prince.classList.remove("character-sliding");
     let timerUpId = setInterval(function () {
       if (bottom > 250) {
         clearInterval(timerUpId);
@@ -35,16 +37,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function slideLeft() {
+    prince.classList.add("character-sliding");
+    prince.classList.remove("character");
+    if (isGoingRight) {
+      clearInterval(rightTimerId);
+      isGoingRight = false;
+    }
     isGoingLeft = true;
-    let leftTimerId = setInterval(function () {
+    leftTimerId = setInterval(function () {
       left -= 5;
       prince.style.left = left + "px";
     }, 20);
   }
 
   function slideRight() {
+    prince.classList.add("character-sliding");
+    prince.classList.remove("character");
+    if (isGoingLeft) {
+      clearInterval(leftTimerId);
+      isGoingLeft = false;
+    }
     isGoingRight = true;
-    let rightTimerId = setInterval(function () {
+    rightTimerId = setInterval(function () {
       // still use "left" variable but instead of - we use +
       left += 5;
       prince.style.left = left + "px";
