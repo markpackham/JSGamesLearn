@@ -45,8 +45,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     isGoingLeft = true;
     leftTimerId = setInterval(function () {
-      left -= 5;
-      prince.style.left = left + "px";
+      if (left > 0) {
+        left -= 5;
+        prince.style.left = left + "px";
+      }
     }, 20);
   }
 
@@ -60,8 +62,10 @@ document.addEventListener("DOMContentLoaded", () => {
     isGoingRight = true;
     rightTimerId = setInterval(function () {
       // still use "left" variable but instead of - we use +
-      left += 5;
-      prince.style.left = left + "px";
+      if (left < 500) {
+        left += 5;
+        prince.style.left = left + "px";
+      }
     }, 20);
   }
 
